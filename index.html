@@ -4,53 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CryptoArtiva</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <div class="logo">CryptoArtiva</div>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="acheter.html">Acheter</a>
-      <a href="vendre.html">Vendre</a>
-      <a href="faq.html">FAQ</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+  <!-- Header -->
+  <header class="bg-primary text-white p-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo fs-3 fw-bold">CryptoArtiva</div>
+      <nav>
+        <a href="index.html" class="text-white mx-2">Accueil</a>
+        <a href="acheter.html" class="text-white mx-2">Acheter</a>
+        <a href="vendre.html" class="text-white mx-2">Vendre</a>
+        <a href="faq.html" class="text-white mx-2">FAQ</a>
+        <a href="contact.html" class="text-white mx-2">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>Achetez et vendez vos cryptos facilement et en toute sécurité</h1>
-      <p>Paiement Mobile Money • Livraison rapide • Support WhatsApp</p>
-      <div class="buttons">
-        <a href="acheter.html" class="btn vert">Acheter</a>
-        <a href="vendre.html" class="btn bleu">Vendre</a>
-        <a href="contact.html" class="btn orange">WhatsApp</a>
+  <!-- Hero / Carrousel -->
+  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://i.pinimg.com/1200x/4d/c6/1b/4dc61b401cc3ef378a46bdca2b88e995.jpg" class="d-block w-100" alt="Crypto">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Achetez et vendez vos cryptos facilement</h2>
+          <p>Paiement Mobile Money • Livraison rapide • Support WhatsApp</p>
+          <a href="acheter.html" class="btn btn-success me-2"><i class="fas fa-arrow-up"></i> Acheter</a>
+          <a href="vendre.html" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Vendre</a>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.pinimg.com/1200x/81/78/4e/81784e304f80f3f9801d17335717ea13.jpg" class="d-block w-100" alt="Bitcoin">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Transactions rapides et sécurisées</h2>
+          <p>Recevez votre crypto directement sur votre wallet</p>
+          <a href="contact.html" class="btn btn-warning"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- Sections -->
+  <main class="container my-5">
+    <section class="text-center mb-5">
+      <h2>Comment ça marche ?</h2>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <i class="fas fa-cart-plus fa-3x text-primary mb-2"></i>
+          <h5>1. Passez commande</h5>
+          <p>Choisissez la crypto et le montant.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-mobile-alt fa-3x text-success mb-2"></i>
+          <h5>2. Paiement Mobile Money</h5>
+          <p>Paiement sécurisé et rapide.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-wallet fa-3x text-warning mb-2"></i>
+          <h5>3. Recevez votre crypto</h5>
+          <p>Transfert instantané vers votre wallet.</p>
+        </div>
       </div>
     </section>
 
-    <section class="steps">
-      <h2>Comment ça marche ?</h2>
-      <ol>
-        <li>Passez commande – choisissez crypto et montant</li>
-        <li>Paiement via Mobile Money</li>
-        <li>Recevez votre crypto rapidement</li>
-      </ol>
-    </section>
-
-    <section class="why">
+    <section class="text-center mb-5">
       <h2>Pourquoi nous choisir ?</h2>
-      <ul>
-        <li>Transactions rapides et fiables</li>
-        <li>Service humain via WhatsApp</li>
-        <li>Taux clairs et transparents</li>
-        <li>Clients satisfaits et rassurés</li>
-      </ul>
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <i class="fas fa-shipping-fast fa-2x text-primary mb-2"></i>
+          <p>Transactions rapides</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-headset fa-2x text-success mb-2"></i>
+          <p>Support WhatsApp</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-chart-line fa-2x text-warning mb-2"></i>
+          <p>Taux transparents</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-smile fa-2x text-danger mb-2"></i>
+          <p>Clients satisfaits</p>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
+  <!-- Footer -->
+  <footer class="bg-primary text-white text-center p-3">
     <p>© 2026 CryptoArtiva - Paiement Mobile Money et Support WhatsApp</p>
   </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
