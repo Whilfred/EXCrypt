@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acheter - CryptoArtiva</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="logo">CryptoArtiva</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="acheter.html">Acheter</a>
+      <a href="vendre.html">Vendre</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Acheter des cryptos</h1>
+    <form id="acheterForm">
+      <label>Crypto :
+        <select name="crypto" required>
+          <option value="USDT">USDT</option>
+          <option value="BTC">BTC</option>
+          <option value="ETH">ETH</option>
+        </select>
+      </label>
+      <label>Montant :
+        <input type="number" name="montant" placeholder="Montant à acheter" required>
+      </label>
+      <label>Adresse wallet :
+        <input type="text" name="wallet" placeholder="Ex : TAddress..." required>
+      </label>
+      <button type="submit">Acheter</button>
+    </form>
+    <p>Après paiement Mobile Money, la crypto sera envoyée à votre wallet rapidement.</p>
+  </main>
+
+  <footer>
+    <p>© 2026 CryptoArtiva</p>
+  </footer>
+</body>
+</html>
