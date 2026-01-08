@@ -7,21 +7,25 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-body{font-family:Arial,sans-serif;background:#f4f6f8;padding-bottom:80px;margin:0;}
+body{font-family:Arial,sans-serif;background:#f4f6f8;padding-bottom:90px;margin:0;}
 header{position:fixed;top:0;width:100%;background:#007bff;color:#fff;text-align:center;font-weight:bold;font-size:1.2rem;padding:15px 0;z-index:1050;box-shadow:0 2px 6px rgba(0,0,0,0.2);}
-main{max-width:600px;margin:90px auto 40px;padding:20px;}
-.block{background:#fff;border-radius:15px;padding:20px;margin-bottom:25px;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
-.block h5{color:#007bff;margin-bottom:15px;font-weight:600;}
+main{max-width:600px;margin:100px auto 40px;padding:20px;}
+.block{background:#fff;border-radius:20px;padding:25px;margin-bottom:30px;box-shadow:0 8px 20px rgba(0,0,0,0.08);}
+.block h5{color:#007bff;margin-bottom:15px;font-weight:600;display:flex;align-items:center;gap:10px;}
 select,input{width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #ccc;font-size:1rem;}
-button{width:100%;padding:14px;background:#28a745;border:none;border-radius:10px;font-weight:bold;font-size:1.1rem;color:white;transition:0.3s;}
+button{width:100%;padding:14px;background:#28a745;border:none;border-radius:10px;font-weight:bold;font-size:1.1rem;color:white;transition:0.3s;margin-top:10px;}
 button:hover{background:#218838;}
 .price-box{text-align:center;font-weight:bold;margin-top:15px;background:#e9f7ef;color:#28a745;padding:15px;border-radius:12px;font-size:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.crypto-logo{width:60px;display:block;margin:15px auto;}
+.crypto-logo,.payment-logo{width:60px;display:block;margin:15px auto;}
 #mobileFields select,#mobileFields input{margin-top:10px;}
+.error-message{color:red;font-weight:bold;margin-top:5px;display:none;}
 .bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:linear-gradient(90deg,#007bff,#00aaff);display:flex;justify-content:space-around;align-items:center;height:65px;z-index:1000;box-shadow:0 -3px 10px rgba(0,0,0,0.2);border-top-left-radius:15px;border-top-right-radius:15px;}
 .bottom-nav a{color:white;text-decoration:none;font-size:0.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.3s;}
 .bottom-nav a i{font-size:1.3rem;margin-bottom:3px;}
 .bottom-nav a.active,.bottom-nav a:hover{color:#ffc107;transform:translateY(-3px);}
+.flag{width:25px;height:auto;vertical-align:middle;}
+.payment-logos{display:flex;justify-content:center;gap:15px;margin-top:10px;}
+.payment-logos img{width:50px;}
 </style>
 </head>
 <body>
@@ -37,29 +41,41 @@ button:hover{background:#218838;}
 </select>
 <input id="giveAmount" type="number" placeholder="Montant">
 <select id="giveNetwork"></select>
+
 <div id="mobileFields">
+<div class="mb-2">
 <select id="country">
-<option value="+229">Bénin (+229)</option>
-<option value="+226">Burkina Faso (+226)</option>
-<option value="+225">Côte d’Ivoire (+225)</option>
+<option value="+229" data-flag="https://flagcdn.com/w20/bj.png">Bénin (+229)</option>
+<option value="+226" data-flag="https://flagcdn.com/w20/bf.png">Burkina Faso (+226)</option>
+<option value="+225" data-flag="https://flagcdn.com/w20/ci.png">Côte d’Ivoire (+225)</option>
 </select>
+</div>
+<div class="mb-2">
 <select id="operator">
 <option>Orange Money</option>
 <option>MTN MoMo</option>
 <option>Moov Money</option>
 <option>Celtiis</option>
 </select>
+</div>
+<div class="mb-2">
+<img id="countryFlag" class="flag" src="https://flagcdn.com/w20/bj.png" alt="drapeau">
 <input id="mobileNumber" type="tel" placeholder="Numéro Mobile Money">
+</div>
+<div class="error-message" id="errorMessage"></div>
 </div>
 </div>
 
 <div class="block">
-<h5>Je reçois</h5>
+<h5>Je reçois <img src="https://i.pinimg.com/1200x/a4/40/d4/a440d4b512f4d2b9b63d3ab8818fc9e3.jpg" class="crypto-logo" id="cryptoLogo"></h5>
 <div id="priceBox" class="price-box"></div>
-<img id="cryptoLogo" class="crypto-logo" src="https://assets.coingecko.com/coins/images/325/thumb/Tether-logo.png" alt="USDT">
+<div class="payment-logos">
+<img src="https://i.pinimg.com/736x/e2/cc/bf/e2ccbf284b0f18ae6e8dc544ac097f4c.jpg" alt="Orange Money" title="Orange Money">
+<img src="https://i.pinimg.com/1200x/f2/f9/38/f2f9385a59cf088b7b77472f3636d4fb.jpg" alt="MTN MoMo" title="MTN MoMo">
+</div>
 </div>
 
-<button>Continuer</button>
+<button id="continueBtn">Continuer</button>
 </main>
 
 <!-- Bottom nav -->
@@ -75,28 +91,60 @@ const giveAmount=document.getElementById("giveAmount");
 const giveNetwork=document.getElementById("giveNetwork");
 const mobileFields=document.getElementById("mobileFields");
 const priceBox=document.getElementById("priceBox");
+const country=document.getElementById("country");
+const countryFlag=document.getElementById("countryFlag");
+const errorMessage=document.getElementById("errorMessage");
+const continueBtn=document.getElementById("continueBtn");
 
 const rates={FCFA_to_USDT:607.88,USDT_to_FCFA:559.75};
 const usdtNetworks=["TRC20","ERC20","BEP20"];
 
 function updateUI(){
-let give=giveSelect.value;
-let amount=Number(giveAmount.value);
-if(give==="FCFA"){
-mobileFields.style.display="block";
-giveNetwork.style.display="none";
-if(amount>=3000){priceBox.textContent=`≈ ${(amount/rates.FCFA_to_USDT).toFixed(6)} USDT`;}
-else{priceBox.textContent="Montant minimum : 3000 FCFA";}
-}else{
-mobileFields.style.display="none";
-giveNetwork.style.display="block";
-giveNetwork.innerHTML="";
-usdtNetworks.forEach(n=>{let o=document.createElement("option"); o.textContent=n; giveNetwork.appendChild(o);});
-if(amount>0){priceBox.textContent=`≈ ${(amount*rates.USDT_to_FCFA).toLocaleString()} FCFA`;}
-else{priceBox.textContent="";}
-}}
+    const give=giveSelect.value;
+    const amount=Number(giveAmount.value);
+    // Drapeau dynamique
+    const selectedOption=country.options[country.selectedIndex];
+    countryFlag.src=selectedOption.getAttribute('data-flag');
+
+    if(give==="FCFA"){
+        mobileFields.style.display="block";
+        giveNetwork.style.display="none";
+        if(amount>=3000 && amount<=200000){
+            priceBox.textContent=`≈ ${(amount/rates.FCFA_to_USDT).toFixed(6)} USDT`;
+        } else {
+            priceBox.textContent="";
+        }
+    } else {
+        mobileFields.style.display="none";
+        giveNetwork.style.display="block";
+        giveNetwork.innerHTML="";
+        usdtNetworks.forEach(n=>{
+            let o=document.createElement("option");
+            o.textContent=n;
+            giveNetwork.appendChild(o);
+        });
+        if(amount>0) priceBox.textContent=`≈ ${(amount*rates.USDT_to_FCFA).toLocaleString()} FCFA`;
+        else priceBox.textContent="";
+    }
+}
+
+// Gestion erreur au clic
+continueBtn.addEventListener("click",()=>{
+    const give=giveSelect.value;
+    const amount=Number(giveAmount.value);
+    if(give==="FCFA" && (amount<3000 || amount>200000)){
+        errorMessage.textContent="Montant doit être entre 3 000 et 200 000 FCFA";
+        errorMessage.style.display="block";
+        setTimeout(()=>{errorMessage.style.display="none";},3000);
+        return;
+    }
+    alert("Montant valide ! Ici vous pouvez continuer le processus d'échange.");
+});
+
 giveSelect.addEventListener("change",updateUI);
 giveAmount.addEventListener("input",updateUI);
+country.addEventListener("change",updateUI);
+
 updateUI();
 </script>
 
