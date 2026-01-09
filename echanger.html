@@ -5,198 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ExCryp - Échanger</title>
 
-<!-- Bootstrap & Font Awesome -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f8f9fa;
-    margin: 0;
-    padding-bottom: 100px;
-}
-
-/* Header */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #fff;
-    color: #333;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.3rem;
-    padding: 15px 0;
-    z-index: 1050;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* Main container */
-main {
-    max-width: 600px;
-    margin: 100px auto 40px;
-    padding: 0 20px;
-}
-
-/* Cards */
-.block {
-    background: #fff;
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-}
-.block h5 {
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Inputs */
-select, input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-/* Button */
-button {
-    width: 100%;
-    padding: 14px;
-    background: #28a745;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: white;
-    transition: 0.3s;
-    margin-top: 15px;
-}
-button:hover {
-    background: #218838;
-}
-
-/* Price box */
-.price-box {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 15px;
-    background: #e9f7ef;
-    color: #28a745;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-/* Logos */
-.crypto-logo, .payment-logo {
-    width: 60px;
-    display: block;
-    margin: 15px auto 0 auto;
-}
-
-/* Mobile fields spacing */
-#mobileFields select, #mobileFields input {
-    margin-top: 10px;
-}
-
-/* Error message */
-.error-message {
-    color: red;
-    font-weight: bold;
-    margin-top: 8px;
-    display: none;
-    text-align: center;
-}
-
-/* Bottom nav */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 65px;
-    z-index: 1000;
-    box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
-}
-.bottom-nav a {
-    color:#333;
-    text-decoration:none;
-    font-size:0.75rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    transition: transform 0.3s, color 0.3s;
-}
-.bottom-nav a i {
-    font-size: 1.3rem;
-    margin-bottom: 3px;
-}
-.bottom-nav a.active, .bottom-nav a:hover {
-    color: #28a745;
-    transform: translateY(-3px);
-}
-
-/* Flag */
-.flag {
-    width: 25px;
-    vertical-align: middle;
-}
-
-/* Payment logos section */
-.payment-logos {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-}
-.payment-logos img {
-    width: 50px;
-}
+body{font-family:Arial;background:#f8f9fa;margin:0;padding-bottom:100px}
+header{position:fixed;top:0;width:100%;background:#fff;padding:15px;
+box-shadow:0 2px 6px rgba(0,0,0,.1);z-index:1000;text-align:center;font-weight:bold}
+main{max-width:600px;margin:100px auto 40px;padding:0 20px}
+.block{background:#fff;border-radius:15px;padding:25px;margin-bottom:25px;
+box-shadow:0 6px 15px rgba(0,0,0,.05)}
+select,input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc}
+button{width:100%;padding:14px;background:#28a745;border:none;border-radius:12px;
+font-size:1.1rem;font-weight:bold;color:#fff}
+.price-box{text-align:center;font-weight:bold;margin-top:15px;background:#e9f7ef;
+color:#28a745;padding:15px;border-radius:12px;font-size:1.2rem}
+.error-message{color:red;font-weight:bold;margin-top:10px;display:none;text-align:center}
+.bottom-nav{position:fixed;bottom:0;width:100%;background:#fff;display:flex;
+justify-content:space-around;height:65px;box-shadow:0 -3px 10px rgba(0,0,0,.1)}
+.bottom-nav a{text-decoration:none;color:#333;font-size:.75rem;display:flex;
+flex-direction:column;align-items:center}
+.bottom-nav a.active{color:#28a745}
 </style>
 </head>
+
 <body>
 
 <header>
-  <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
-    <img src="logo_crypt.png" alt="Logo ExCryp" style="height:35px;">
-    <span>ExCryp - Échanger</span>
-  </div>
+  <img src="logo_crypt.png" style="height:35px"> ExCryp - Échanger
 </header>
 
 <main>
-<!-- Je donne -->
+
+<!-- JE DONNE -->
 <div class="block">
 <h5>Je donne</h5>
+
 <select id="giveSelect">
 <option value="FCFA">Mobile Money (FCFA)</option>
 <option value="USDT">USDT</option>
 </select>
-<input id="giveAmount" type="number" placeholder="Montant">
-<select id="giveNetwork"></select>
 
-<div id="mobileFields">
-<div class="mb-2">
-<select id="country">
-<option value="+229" data-flag="https://flagcdn.com/w20/bj.png">Bénin (+229)</option>
-<option value="+226" data-flag="https://flagcdn.com/w20/bf.png">Burkina Faso (+226)</option>
-<option value="+225" data-flag="https://flagcdn.com/w20/ci.png">Côte d’Ivoire (+225)</option>
+<input id="giveAmount" type="number" placeholder="Montant">
+
+<select id="giveNetwork" style="display:none">
+<option>TRC20</option>
+<option>ERC20</option>
+<option>BEP20</option>
 </select>
-</div>
-<div class="mb-2">
+
+<!-- Mobile Money DON -->
+<div id="mobileGive">
+<select id="country">
+<option value="+229">Bénin (+229)</option>
+<option value="+226">Burkina Faso (+226)</option>
+<option value="+225">Côte d’Ivoire (+225)</option>
+</select>
+
 <select id="operator">
 <option>Orange Money</option>
 <option>MTN MoMo</option>
@@ -204,108 +69,112 @@ button:hover {
 <option>Moov Money</option>
 <option>Celtiis</option>
 </select>
-</div>
-<div class="mb-2">
-<img id="countryFlag" class="flag" src="https://flagcdn.com/w20/bj.png" alt="drapeau">
+
 <input id="mobileNumber" type="tel" placeholder="Numéro Mobile Money">
 </div>
+
 <div class="error-message" id="errorMessage"></div>
 </div>
+
+<!-- JE REÇOIS -->
+<div class="block">
+<h5>Je reçois</h5>
+
+<div id="priceBox" class="price-box"></div>
+
+<!-- Réception USDT -->
+<div id="receiveCrypto" style="display:none">
+<select id="receiveCryptoNetwork">
+<option>TRC20</option>
+<option>ERC20</option>
+<option>BEP20</option>
+</select>
+<input id="receiveCryptoAddress" type="text" placeholder="Adresse du wallet USDT">
 </div>
 
-<!-- Je reçois -->
-<div class="block">
-<h5>Je reçois <img id="cryptoLogo" class="crypto-logo" src=""></h5>
-<div id="priceBox" class="price-box"></div>
-<div class="payment-logos" id="paymentLogos"></div>
+<!-- Réception Mobile Money -->
+<div id="receiveMobile" style="display:none">
+<input id="receiveName" type="text" placeholder="Nom du titulaire">
+<select id="receiveCountry">
+<option value="+229">Bénin (+229)</option>
+<option value="+226">Burkina Faso (+226)</option>
+<option value="+225">Côte d’Ivoire (+225)</option>
+</select>
+<select id="receiveOperator">
+<option>Orange Money</option>
+<option>MTN MoMo</option>
+<option>Wave</option>
+<option>Moov Money</option>
+<option>Celtiis</option>
+</select>
+<input id="receiveNumber" type="tel" placeholder="Numéro Mobile Money">
+</div>
+
 </div>
 
 <button id="continueBtn">Continuer</button>
+
 </main>
 
-<!-- Bottom nav -->
 <div class="bottom-nav">
-<a href="index.html"><i class="fas fa-home"></i> Accueil</a>
-<a href="echanger.html" class="active"><i class="fas fa-exchange-alt"></i> Échanger</a>
-<a href="https://wa.me/2290154108665" target="_blank"><i class="fab fa-whatsapp"></i> Contact</a>
+<a href="index.html"><i class="fas fa-home"></i>Accueil</a>
+<a href="echanger.html" class="active"><i class="fas fa-exchange-alt"></i>Échanger</a>
+<a href="https://wa.me/2290154108665"><i class="fab fa-whatsapp"></i>Contact</a>
 </div>
 
 <script>
-const giveSelect=document.getElementById("giveSelect");
-const giveAmount=document.getElementById("giveAmount");
-const giveNetwork=document.getElementById("giveNetwork");
-const mobileFields=document.getElementById("mobileFields");
-const priceBox=document.getElementById("priceBox");
-const country=document.getElementById("country");
-const countryFlag=document.getElementById("countryFlag");
-const errorMessage=document.getElementById("errorMessage");
-const continueBtn=document.getElementById("continueBtn");
-const cryptoLogo=document.getElementById("cryptoLogo");
-const operatorSelect=document.getElementById("operator");
-
-const rates={FCFA_to_USDT:607.88,USDT_to_FCFA:559.75};
-const usdtNetworks=["TRC20","ERC20","BEP20"];
+const rates={FCFA_USDT:607.88,USDT_FCFA:559.75};
 
 function updateUI(){
-    const give=giveSelect.value;
-    const amount=Number(giveAmount.value);
-    const selectedOption=country.options[country.selectedIndex];
-    countryFlag.src=selectedOption.getAttribute('data-flag');
+ const give=giveSelect.value;
+ const amount=Number(giveAmount.value);
 
-    // Montant et réseau
-    if(give==="FCFA"){
-        mobileFields.style.display="block";
-        giveNetwork.style.display="none";
-        if(amount>=3000 && amount<=200000){
-            priceBox.textContent=`≈ ${(amount/rates.FCFA_to_USDT).toFixed(6)} USDT`;
-        } else priceBox.textContent="";
-        // Logo Je reçois = USDT
-        cryptoLogo.src="https://i.pinimg.com/1200x/a4/40/d4/a440d4b512f4d2b9b63d3ab8818fc9e3.jpg";
-    } else {
-        mobileFields.style.display="none";
-        giveNetwork.style.display="block";
-        giveNetwork.innerHTML="";
-        usdtNetworks.forEach(n=>{
-            let o=document.createElement("option");
-            o.textContent=n;
-            giveNetwork.appendChild(o);
-        });
-        if(amount>0) priceBox.textContent=`≈ ${(amount*rates.USDT_to_FCFA).toLocaleString()} FCFA`;
-        else priceBox.textContent="";
-        // Logo Je reçois = opérateur choisi
-        let operator=operatorSelect.value;
-        let logoUrl="";
-        if(operator==="Orange Money") logoUrl="https://i.pinimg.com/736x/e2/cc/bf/e2ccbf284b0f18ae6e8dc544ac097f4c.jpg";
-        else if(operator==="MTN MoMo") logoUrl="https://i.pinimg.com/1200x/f2/f9/38/f2f9385a59cf088b7b77472f3636d4fb.jpg";
-        else if(operator==="Wave") logoUrl="https://upload.wikimedia.org/wikipedia/commons/2/28/Wave_logo.png";
-        else if(operator==="Moov Money") logoUrl="https://upload.wikimedia.org/wikipedia/commons/1/1b/Moov_Money_logo.png";
-        else if(operator==="Celtiis") logoUrl="https://upload.wikimedia.org/wikipedia/commons/3/37/Celtiis_logo.png";
-        cryptoLogo.src=logoUrl;
-    }
+ mobileGive.style.display=give==="FCFA"?"block":"none";
+ giveNetwork.style.display=give==="USDT"?"block":"none";
+ receiveCrypto.style.display=give==="FCFA"?"block":"none";
+ receiveMobile.style.display=give==="USDT"?"block":"none";
+
+ if(give==="FCFA" && amount>0)
+  priceBox.textContent=`≈ ${(amount/rates.FCFA_USDT).toFixed(2)} USDT`;
+ else if(give==="USDT" && amount>0)
+  priceBox.textContent=`≈ ${(amount*rates.USDT_FCFA).toFixed(0)} FCFA`;
+ else priceBox.textContent="";
 }
 
-// Gestion erreur au clic
-continueBtn.addEventListener("click",()=>{
-    const give=giveSelect.value;
-    const amount=Number(giveAmount.value);
-    if(give==="FCFA" && (amount<3000 || amount>200000)){
-        errorMessage.textContent="Montant doit être entre 3 000 et 200 000 FCFA";
-        errorMessage.style.display="block";
-        setTimeout(()=>{errorMessage.style.display="none";},3000);
-        return;
-    }
-    alert("Montant valide ! Ici vous pouvez continuer le processus d'échange.");
-});
+continueBtn.onclick=()=>{
+ const give=giveSelect.value;
+ const amount=giveAmount.value;
+ if(amount<=0){errorMessage.textContent="Montant invalide";errorMessage.style.display="block";return;}
 
-// Événements
-giveSelect.addEventListener("change",updateUI);
-giveAmount.addEventListener("input",updateUI);
-country.addEventListener("change",updateUI);
-operatorSelect.addEventListener("change",updateUI);
+ let msg="Je souhaite échanger :\n";
+
+ if(give==="FCFA"){
+  msg+=`- Je donne : ${amount} FCFA\n`;
+  msg+=`- Pays : ${country.options[country.selectedIndex].text}\n`;
+  msg+=`- Réseau Mobile : ${operator.value}\n`;
+  msg+=`- Numéro : ${mobileNumber.value}\n`;
+  msg+=`- Je reçois : USDT\n`;
+  msg+=`- Réseau crypto : ${receiveCryptoNetwork.value}\n`;
+  msg+=`- Adresse : ${receiveCryptoAddress.value}`;
+ }else{
+  msg+=`- Je donne : ${amount} USDT\n`;
+  msg+=`- Réseau crypto : ${giveNetwork.value}\n`;
+  msg+=`- Je reçois : Mobile Money\n`;
+  msg+=`- Nom : ${receiveName.value}\n`;
+  msg+=`- Pays : ${receiveCountry.options[receiveCountry.selectedIndex].text}\n`;
+  msg+=`- Réseau : ${receiveOperator.value}\n`;
+  msg+=`- Numéro : ${receiveNumber.value}`;
+ }
+
+ window.open("https://wa.me/2290154108665?text="+encodeURIComponent(msg));
+};
+
+["giveSelect","giveAmount"].forEach(id=>{
+ document.getElementById(id).addEventListener("input",updateUI);
+});
 
 updateUI();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
