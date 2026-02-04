@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExCrypt - Crypto & Mobile Money</title>
-    <link rel="icon" type="image/png" href="logo_crypt.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%);
             --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            --bg-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --card-bg: #ffffff;
-            --text-primary: #0f172a;
+            --bg-hero: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            --text-primary: #1e293b;
             --text-secondary: #64748b;
             --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
             --shadow-xl: 0 25px 50px rgba(0,0,0,0.15);
@@ -30,197 +28,268 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255,255,255,0.98);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(20px);
             padding: 15px 20px;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        header img { height: 40px; }
+        header img { height: 35px; }
         header h1 { 
-            font-size: 1.5rem; 
-            font-weight: 800; 
+            font-size: 1.4rem; 
+            font-weight: 700;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 0;
         }
-        /* Hero - FIXÉ : hauteur auto + padding */
-        .hero {
-            min-height: 90vh;
-            position: relative;
+        
+        /* CRYPTO BANNER CARROUSEL PREMIUM */
+        .crypto-banner {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            height: 240px;
+            overflow: hidden;
+            z-index: 999;
+            background: var(--bg-hero);
+        }
+        .crypto-track {
             display: flex;
+            animation: scrollCrypto 45s linear infinite;
+            width: max-content;
+            padding-top: 20px;
+        }
+        .crypto-track:hover { animation-play-state: paused; }
+        .crypto-item {
+            height: 200px;
+            width: 360px;
+            margin-right: 24px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+        .crypto-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            color: white;
+            padding: 24px 20px;
+            border-radius: 0 0 24px 24px;
+        }
+        .crypto-overlay h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .crypto-overlay p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        @keyframes scrollCrypto {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: var(--bg-hero) url('https://i.pinimg.com/1200x/4d/c6/1b/4dc61b401cc3ef378a46bdca2b88e995.jpg') center/cover;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 120px 20px 80px;
-            margin-top: 70px; /* Header height */
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-        }
-        .hero-content {
-            max-width: 900px;
-            text-align: center;
-            z-index: 2;
-            position: relative;
+            margin-top: 240px;
         }
         .hero h2 {
-            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideUp 1s 0.3s forwards;
         }
         .hero p {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            margin-bottom: 48px;
-            opacity: 0.95;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s 0.6s forwards;
+        }
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s 1s forwards;
         }
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            padding: 18px 36px;
+            padding: 20px 40px;
             border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             box-shadow: var(--shadow-xl);
             color: white;
             text-align: center;
             flex: 1;
-            min-width: 240px;
+            min-width: 260px;
+            backdrop-filter: blur(10px);
         }
-        .btn-primary { background: var(--primary-gradient); }
-        .btn-success { background: var(--success-gradient); }
+        .btn-primary { 
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-success { 
+            background: var(--success-gradient);
+        }
         .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(102,126,234,0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
-        /* Sections */
-        section {
-            padding: 90px 20px;
+        
+        /* FEATURES */
+        .features {
+            padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
-        h2 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
+        .features h2 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
             font-weight: 800;
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 80px;
             position: relative;
         }
-        h2::after {
+        .features h2::after {
             content: '';
             display: block;
-            width: 100px;
+            width: 120px;
             height: 5px;
             background: var(--primary-gradient);
             margin: 20px auto 0;
             border-radius: 3px;
         }
-        .cards-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
-            margin-top: 20px;
         }
-        .card {
-            background: var(--card-bg);
+        .feature-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 48px 32px;
             text-align: center;
             box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.4s ease;
         }
-        .card:hover {
+        .feature-card:hover {
             transform: translateY(-12px);
             box-shadow: var(--shadow-xl);
         }
-        .card i {
-            font-size: 4.5rem;
+        .feature-card i {
+            font-size: 4rem;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             display: block;
         }
-        .card h5 {
+        .feature-card h3 {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
-        .card p {
+        .feature-card p {
             color: var(--text-secondary);
             font-size: 1.05rem;
         }
-        .features-bg {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-        }
+        
         /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(30px);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            height: 85px;
+            height: 80px;
             z-index: 1000;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
             padding: 0 20px;
         }
         .bottom-nav a {
             color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            padding: 16px;
-            border-radius: 20px;
+            justify-content: center;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 12px 8px;
+            border-radius: 16px;
+            flex: 1;
+            max-width: 80px;
         }
-        .bottom-nav a i { font-size: 1.8rem; }
+        .bottom-nav a i {
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bottom-nav a span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            line-height: 1.1;
+        }
         .bottom-nav a.active,
         .bottom-nav a:hover {
-            color: #667eea;
-            background: rgba(102,126,234,0.1);
-            transform: translateY(-4px);
+            color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
         }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-buttons { flex-direction: column; align-items: stretch; }
-            .btn { min-width: unset; width: 100%; }
-            section { padding: 70px 16px; }
-            .cards-grid { grid-template-columns: 1fr; gap: 30px; }
+        @media (max-width: 480px) {
+            .crypto-item { width: 320px; margin-right: 16px; }
+            .features { padding: 80px 16px; }
         }
     </style>
 </head>
@@ -231,67 +300,88 @@
         <h1>ExCrypt</h1>
     </header>
 
-    <!-- Hero -->
+    <!-- Crypto Banner -->
+    <div class="crypto-banner">
+        <div class="crypto-track">
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1639762681485-ea5a18ee0e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>USDT / FCFA</h3>
+                    <p>Échange instantané Mobile Money</p>
+                </div>
+            </div>
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1620325867503-23e43335f7e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>Bitcoin</h3>
+                    <p>Meilleurs taux 24/7</p>
+                </div>
+            </div>
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1644600814977-c39085b8ca2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>Ethereum</h3>
+                    <p>Réseaux TRC20/ERC20</p>
+                </div>
+            </div>
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1671249491497-2a357de375eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>Orange Money</h3>
+                    <p>Paiement sécurisé</p>
+                </div>
+            </div>
+            <!-- Duplication pour boucle fluide -->
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1639762681485-ea5a18ee0e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>USDT / FCFA</h3>
+                    <p>Échange instantané Mobile Money</p>
+                </div>
+            </div>
+            <div class="crypto-item" style="background-image: url('https://images.unsplash.com/photo-1620325867503-23e43335f7e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')">
+                <div class="crypto-overlay">
+                    <h3>Bitcoin</h3>
+                    <p>Meilleurs taux 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Échangez Vos Cryptos Instantanément</h2>
-            <p>💱 Mobile Money → USDT en 5min • Taux live • Support WhatsApp 24/7</p>
-            <div class="hero-buttons">
-                <a href="echanger.html" class="btn btn-primary">
-                    <i class="fas fa-exchange-alt"></i> Échanger Maintenant
-                </a>
-                <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-success">
-                    <i class="fab fa-whatsapp"></i> Contacter Support
-                </a>
-            </div>
+        <h2>Échangez Crypto & Mobile Money</h2>
+        <p>Conversion instantanée FCFA ↔ USDT • Support WhatsApp 24/7 • Taux live</p>
+        <div class="hero-buttons">
+            <a href="echanger.html" class="btn btn-primary">
+                <i class="fas fa-exchange-alt"></i>
+                Commencer l'échange
+            </a>
+            <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-success">
+                <i class="fab fa-whatsapp"></i>
+                Contacter Support
+            </a>
         </div>
     </section>
 
-    <!-- Comment ça marche -->
-    <section>
-        <h2>Comment ça marche ?</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <i class="fas fa-cart-shopping"></i>
-                <h5>1. Choisissez</h5>
-                <p>Sélectionnez crypto et montant sur échanger.html</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-mobile-retro"></i>
-                <h5>2. Payez MM</h5>
-                <p>Orange Money, MTN, Wave - sécurisé</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-wallet"></i>
-                <h5>3. Recevez</h5>
-                <p>USDT direct sur votre wallet TRC20/ERC20</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pourquoi ExCrypt -->
-    <section class="features-bg">
-        <h2>Pourquoi choisir ExCrypt ?</h2>
-        <div class="cards-grid">
-            <div class="card">
+    <!-- Features -->
+    <section class="features">
+        <h2>Pourquoi ExCrypt ?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
                 <i class="fas fa-bolt"></i>
-                <h5>⚡ Instantané</h5>
-                <p>Moins de 5min par transaction</p>
+                <h3>⚡ Instantané</h3>
+                <p>Transactions en moins de 5 minutes, 24/7</p>
             </div>
-            <div class="card">
-                <i class="fas fa-headset"></i>
-                <h5>📱 Support 24/7</h5>
-                <p>Réponse WhatsApp en 2min max</p>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>📱 Mobile Money</h3>
+                <p>Orange Money, MTN MoMo, Wave, tous opérateurs</p>
             </div>
-            <div class="card">
+            <div class="feature-card">
                 <i class="fas fa-chart-line"></i>
-                <h5>💰 Meilleurs Taux</h5>
-                <p>Mis à jour toutes les heures</p>
+                <h3>💰 Meilleurs Taux</h3>
+                <p>Taux compétitifs mis à jour en temps réel</p>
             </div>
-            <div class="card">
-                <i class="fas fa-shield-alt"></i>
-                <h5>🛡️ Sécurisé</h5>
-                <p>+10k transactions réussies</p>
+            <div class="feature-card">
+                <i class="fas fa-headset"></i>
+                <h3>📞 Support Premium</h3>
+                <p>Réponse WhatsApp garantie sous 2 minutes</p>
             </div>
         </div>
     </section>
@@ -300,38 +390,16 @@
     <div class="bottom-nav">
         <a href="index.html" class="active">
             <i class="fas fa-home"></i>
-            Accueil
+            <span>Accueil</span>
         </a>
         <a href="echanger.html">
             <i class="fas fa-exchange-alt"></i>
-            Échanger
+            <span>Échanger</span>
         </a>
         <a href="https://wa.me/2290154108665" target="_blank">
             <i class="fab fa-whatsapp"></i>
-            Support
+            <span>Support</span>
         </a>
     </div>
-
-    <script>
-        // Active home tab
-        document.querySelector('.bottom-nav a[href="index.html"]').classList.add('active');
-
-        // Smooth scroll animations (léger)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(40px)';
-            card.style.transition = 'all 0.6s ease';
-            observer.observe(card);
-        });
-    </script>
 </body>
 </html>
