@@ -59,7 +59,6 @@ header h1{
   overflow:hidden;
   z-index:999;
 }
-
 .crypto-banner::after{
   content:'';
   position:absolute;
@@ -67,7 +66,6 @@ header h1{
   box-shadow:inset 0 -50px 70px rgba(0,0,0,.45);
   pointer-events:none;
 }
-
 .crypto-track{
   display:flex;
   height:100%;
@@ -91,7 +89,6 @@ header h1{
   align-items:flex-end;
   border:1px solid rgba(255,255,255,.2);
 }
-
 .crypto-overlay{
   width:100%;
   padding:12px 16px;
@@ -219,32 +216,22 @@ header h1{
 <body>
 
 <header>
-  <img src="logo_crypt.png">
+  <img src="logo_crypt.png" alt="ExCrypt">
   <h1>ExCrypt</h1>
 </header>
 
 <!-- CAROUSEL -->
 <div class="crypto-banner">
   <div class="crypto-track" id="cryptoTrack">
-    <!-- cartes -->
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/46/12/08/4612087a9b302ca2eb49cd6085ee0337.jpg')"><div class="crypto-overlay"><h3>USDT / FCFA</h3><p>Instantané</p></div></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/47/fb/72/47fb72e7a78122da8e48dc73161fa98d.jpg')"><div class="crypto-overlay"><h3>USTD</h3><p>TRC20 / ERC20</p></div></div>
-
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/d4/0a/ae/d40aaed93de5fb669b845167963c6d9f.jpg')"><div class="crypto-overlay"><h3>Mobile Money</h3><p>Orange</p></div></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/47/fb/72/47fb72e7a78122da8e48dc73161fa98d.jpg')"><div class="crypto-overlay"><h3>USTD</h3><p>TRC20 / ERC20</p></div></div>
-
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/77/e7/e0/77e7e053ae4d50d59d76766636999be5.jpg')"><div class="crypto-overlay"><h3>Mobile Money</h3><p>MTN</p></div></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/47/fb/72/47fb72e7a78122da8e48dc73161fa98d.jpg')"><div class="crypto-overlay"><h3>USTD</h3><p>TRC20 / ERC20</p></div></div>
-
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/c1/04/e5/c104e55bb7db9b37d5f6f6248ffaad54.jpg')"><div class="crypto-overlay"><h3>Mobile Money</h3><p>Wave</p></div></div>
-
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/b4/35/b6/b435b6b9d2145c8e480c285357c6e71e.jpg')"><div class="crypto-overlay"><h3>Support clients</h3><p>24/7</p></div></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/47/fb/72/47fb72e7a78122da8e48dc73161fa98d.jpg')"><div class="crypto-overlay"><h3>USTD</h3><p>TRC20 / ERC20</p></div></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/a3/ed/ad/a3edad84317fa2ce09f9c0d1f7ccf37f.jpg')"><div class="crypto-overlay"><h3>Mobile Money</h3><p>Orange • MTN • Wave</p></div></div>
-
-    <!-- duplication pour boucle -->
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/1200x/47/fb/72/47fb72e7a78122da8e48dc73161fa98d.jpg')"></div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/3c/b8/09/3cb80983f425e03ccf221fadaed7a458.jpg')"></div>
+    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/46/12/08/4612087a9b302ca2eb49cd6085ee0337.jpg')">
+      <div class="crypto-overlay"><h3>USDT / FCFA</h3><p>Instantané</p></div>
+    </div>
+    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/77/e7/e0/77e7e053ae4d50d59d76766636999be5.jpg')">
+      <div class="crypto-overlay"><h3>Mobile Money</h3><p>MTN</p></div>
+    </div>
+    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/a3/ed/ad/a3edad84317fa2ce09f9c0d1f7ccf37f.jpg')">
+      <div class="crypto-overlay"><h3>Support</h3><p>24/7</p></div>
+    </div>
   </div>
 </div>
 
@@ -253,8 +240,12 @@ header h1{
   <h2>Crypto & Mobile Money</h2>
   <p>FCFA ↔ USDT • Taux live • Support WhatsApp</p>
   <div class="hero-buttons">
-    <a href="#" class="btn btn-primary"><i class="fas fa-exchange-alt"></i>Échanger</a>
-    <a href="#" class="btn btn-success"><i class="fab fa-whatsapp"></i>Support</a>
+    <a href="echanger.html" class="btn btn-primary">
+      <i class="fas fa-exchange-alt"></i>Échanger
+    </a>
+    <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-success">
+      <i class="fab fa-whatsapp"></i>Support
+    </a>
   </div>
 </section>
 
@@ -269,45 +260,38 @@ header h1{
   </div>
 </section>
 
+<!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <a class="active"><i class="fas fa-home"></i>Accueil</a>
-  <a><i class="fas fa-exchange-alt"></i>Échanger</a>
-  <a><i class="fab fa-whatsapp"></i>Support</a>
+  <a href="index.html" class="active">
+    <i class="fas fa-home"></i>Accueil
+  </a>
+  <a href="echanger.html">
+    <i class="fas fa-exchange-alt"></i>Échanger
+  </a>
+  <a href="https://wa.me/2290154108665" target="_blank">
+    <i class="fab fa-whatsapp"></i>Support
+  </a>
 </div>
 
-<!-- JS : AUTO + SCROLL + SWIPE -->
+<!-- JS -->
 <script>
 const track = document.getElementById("cryptoTrack");
-
 let currentX = 0;
 let targetX = 0;
 let autoSpeed = -0.3;
 let lastScrollY = window.scrollY;
 
-// animation loop
 function animate(){
-  targetX += autoSpeed; // auto horizontal
+  targetX += autoSpeed;
   currentX += (targetX - currentX) * 0.08;
   track.style.transform = `translateX(${currentX}px)`;
   requestAnimationFrame(animate);
 }
 
-// scroll page influence
 window.addEventListener("scroll",()=>{
   const delta = window.scrollY - lastScrollY;
   targetX -= delta * 0.7;
   lastScrollY = window.scrollY;
-});
-
-// swipe mobile
-let startX = 0;
-track.addEventListener("touchstart",e=>{
-  startX = e.touches[0].clientX;
-});
-track.addEventListener("touchmove",e=>{
-  const moveX = e.touches[0].clientX;
-  targetX += (moveX - startX) * 1.2;
-  startX = moveX;
 });
 
 animate();
