@@ -1,231 +1,337 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExCryp</title>
-
-<!-- Bootstrap & Font Awesome -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="logo_crypt.png">
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f2f4f8;
-    padding-bottom: 80px;
-    color: #333;
-}
-
-/* Header avec logo */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    gap: 10px;
-    background: transparent;
-    font-weight: 700; /* plus gras */
-}
-
-header img {
-    height: 40px;
-    width: auto;
-}
-
-/* Carousel */
-.carousel-item img {
-    height: 400px;
-    object-fit: cover;
-}
-.carousel-caption {
-    background: rgba(0,0,0,0.55);
-    padding: 20px;
-    border-radius: 12px;
-}
-.carousel-caption h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
-.carousel-caption p { font-size: 1rem; }
-.carousel-caption .btn {
-    margin-top: 10px;
-    border-radius: 50px;
-    padding: 10px 20px;
-    font-weight: 500;
-    transition: transform 0.3s;
-}
-.carousel-caption .btn:hover { transform: scale(1.05); }
-
-/* Sections */
-section {padding: 50px 0;}
-section h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    font-weight: 600;
-    position: relative;
-    display: inline-block;
-}
-section h2::after {
-    content:"";
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: #28a745; /* Vert */
-    margin-top: 8px;
-    border-radius: 2px;
-}
-.feature-card, .reason-card {
-    background: #fff;
-    border-radius: 15px;
-    padding: 30px 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-}
-.feature-card:hover, .reason-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-}
-.feature-card i, .reason-card i {color: #28a745;}
-.feature-card i {font-size: 3rem; margin-bottom: 15px;}
-.reason-card i {font-size: 2.5rem; margin-bottom: 10px;}
-
-/* Bottom nav */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 65px;
-    z-index: 1000;
-    box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
-}
-.bottom-nav a {
-    color:#333;
-    text-decoration:none;
-    font-size:0.75rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    transition: transform 0.3s, color 0.3s;
-}
-.bottom-nav a i {
-    font-size: 1.3rem;
-    margin-bottom: 3px;
-}
-.bottom-nav a.active, .bottom-nav a:hover {
-    color: #28a745;
-    transform: translateY(-3px);
-}
-
-/* Responsive improvements */
-@media (min-width:768px){
-    .carousel-item img{height:500px;}
-    section h2{font-size:2.5rem;}
-    .carousel-caption h2{font-size:2rem;}
-    .carousel-caption p{font-size:1.1rem;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExCrypt - Crypto & Mobile Money</title>
+    <link rel="icon" type="image/png" href="logo_crypt.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --bg-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+            --shadow-xl: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            padding: 15px 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        header img { height: 40px; }
+        header h1 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+        /* Hero - FIXÉ : hauteur auto + padding */
+        .hero {
+            min-height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-hero) url('https://i.pinimg.com/1200x/4d/c6/1b/4dc61b401cc3ef378a46bdca2b88e995.jpg') center/cover;
+            color: white;
+            padding: 120px 20px 80px;
+            margin-top: 70px; /* Header height */
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+        .hero h2 {
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            margin-bottom: 48px;
+            opacity: 0.95;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-xl);
+            color: white;
+            text-align: center;
+            flex: 1;
+            min-width: 240px;
+        }
+        .btn-primary { background: var(--primary-gradient); }
+        .btn-success { background: var(--success-gradient); }
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(102,126,234,0.4);
+        }
+        /* Sections */
+        section {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: var(--primary-gradient);
+            margin: 20px auto 0;
+            border-radius: 3px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl);
+        }
+        .card i {
+            font-size: 4.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 28px;
+            display: block;
+        }
+        .card h5 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        .features-bg {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(30px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 85px;
+            z-index: 1000;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            padding: 0 20px;
+        }
+        .bottom-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .bottom-nav a i { font-size: 1.8rem; }
+        .bottom-nav a.active,
+        .bottom-nav a:hover {
+            color: #667eea;
+            background: rgba(102,126,234,0.1);
+            transform: translateY(-4px);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-buttons { flex-direction: column; align-items: stretch; }
+            .btn { min-width: unset; width: 100%; }
+            section { padding: 70px 16px; }
+            .cards-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <img src="logo_crypt.png" alt="ExCrypt">
+        <h1>ExCrypt</h1>
+    </header>
 
-<!-- Header -->
-<header>
-    <img src="logo_crypt.png" style="height:35px"> ExCrypt
-</header>
-
-<!-- Carousel -->
-<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://i.pinimg.com/1200x/4d/c6/1b/4dc61b401cc3ef378a46bdca2b88e995.jpg" class="d-block w-100" alt="Crypto">
-      <div class="carousel-caption d-md-block text-center">
-        <h2>Achetez et vendez vos cryptos facilement</h2>
-        <p>Paiement Mobile Money • Livraison rapide • Support WhatsApp</p>
-        <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-3">
-          <a href="echanger.html" class="btn btn-success"><i class="fas fa-arrow-up"></i> Échanger</a>
-          <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-warning"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Échangez Vos Cryptos Instantanément</h2>
+            <p>💱 Mobile Money → USDT en 5min • Taux live • Support WhatsApp 24/7</p>
+            <div class="hero-buttons">
+                <a href="echanger.html" class="btn btn-primary">
+                    <i class="fas fa-exchange-alt"></i> Échanger Maintenant
+                </a>
+                <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-success">
+                    <i class="fab fa-whatsapp"></i> Contacter Support
+                </a>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Comment ça marche -->
+    <section>
+        <h2>Comment ça marche ?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <i class="fas fa-cart-shopping"></i>
+                <h5>1. Choisissez</h5>
+                <p>Sélectionnez crypto et montant sur échanger.html</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-mobile-retro"></i>
+                <h5>2. Payez MM</h5>
+                <p>Orange Money, MTN, Wave - sécurisé</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-wallet"></i>
+                <h5>3. Recevez</h5>
+                <p>USDT direct sur votre wallet TRC20/ERC20</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi ExCrypt -->
+    <section class="features-bg">
+        <h2>Pourquoi choisir ExCrypt ?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <i class="fas fa-bolt"></i>
+                <h5>⚡ Instantané</h5>
+                <p>Moins de 5min par transaction</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-headset"></i>
+                <h5>📱 Support 24/7</h5>
+                <p>Réponse WhatsApp en 2min max</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h5>💰 Meilleurs Taux</h5>
+                <p>Mis à jour toutes les heures</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h5>🛡️ Sécurisé</h5>
+                <p>+10k transactions réussies</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+        <a href="index.html" class="active">
+            <i class="fas fa-home"></i>
+            Accueil
+        </a>
+        <a href="echanger.html">
+            <i class="fas fa-exchange-alt"></i>
+            Échanger
+        </a>
+        <a href="https://wa.me/2290154108665" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            Support
+        </a>
     </div>
-  </div>
-</div>
 
-<main class="container">
-  <section class="text-center">
-    <h2>Comment ça marche ?</h2>
-    <div class="row g-4 mt-4">
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="fas fa-cart-plus"></i>
-          <h5 class="mt-3">1. Passez commande</h5>
-          <p>Choisissez la crypto et le montant.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="fas fa-mobile-alt"></i>
-          <h5 class="mt-3">2. Paiement Mobile Money</h5>
-          <p>Paiement sécurisé et rapide.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="fas fa-wallet"></i>
-          <h5 class="mt-3">3. Recevez votre crypto</h5>
-          <p>Transfert instantané vers votre wallet.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        // Active home tab
+        document.querySelector('.bottom-nav a[href="index.html"]').classList.add('active');
 
-  <section class="text-center bg-light rounded-4 shadow-sm">
-    <h2>Pourquoi nous choisir ?</h2>
-    <div class="row g-4 mt-4">
-      <div class="col-6 col-md-3">
-        <div class="reason-card"><i class="fas fa-shipping-fast"></i><p class="mt-2">Transactions rapides</p></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="reason-card"><i class="fas fa-headset"></i><p class="mt-2">Support WhatsApp</p></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="reason-card"><i class="fas fa-chart-line"></i><p class="mt-2">Taux transparents</p></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="reason-card"><i class="fas fa-smile"></i><p class="mt-2">Clients satisfaits</p></div>
-      </div>
-    </div>
-  </section>
-</main>
+        // Smooth scroll animations (léger)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
 
-<!-- Bottom nav -->
-<div class="bottom-nav">
-  <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
-  <a href="echanger.html"><i class="fas fa-exchange-alt"></i> Échanger</a>
-  <a href="https://wa.me/2290154108665" target="_blank"><i class="fab fa-whatsapp"></i> Contact</a>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-// Activer l'onglet correct automatiquement
-const navLinks = document.querySelectorAll('.bottom-nav a');
-const currentPage = window.location.pathname.split("/").pop();
-
-navLinks.forEach(link => {
-  const href = link.getAttribute('href');
-  if(href === currentPage){
-    link.classList.add('active');
-  } else {
-    link.classList.remove('active');
-  }
-});
-</script>
-
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
