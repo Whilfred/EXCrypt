@@ -3,24 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExCrypt – Crypto & Mobile Money</title>
+<title>ExCrypt – Crypto Premium</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root{
-  --primary: linear-gradient(135deg,#8b5cf6,#a855f7,#ec4899);
-  --success: linear-gradient(135deg,#10b981,#059669);
-  --dark: linear-gradient(135deg,#1e293b,#334155);
-  --shadow: 0 20px 40px rgba(0,0,0,.2);
+  --bg-dark:#0f172a;
+  --bg-card:rgba(255,255,255,0.06);
+  --primary:#8b5cf6;
+  --secondary:#ec4899;
+  --accent:#22d3ee;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:'Inter',sans-serif;
-  background:#f8fafc;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#1e293b,#0f172a 60%);
+  color:white;
   overflow-x:hidden;
 }
 
@@ -29,238 +31,259 @@ header{
   position:fixed;
   top:0;
   width:100%;
-  height:70px;
-  background:rgba(255,255,255,.95);
+  height:75px;
   backdrop-filter:blur(20px);
+  background:rgba(15,23,42,.7);
   display:flex;
+  justify-content:center;   /* CENTRAGE */
   align-items:center;
-  justify-content:center;
-  gap:10px;
   z-index:1000;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
 }
-header img{height:34px}
+
 header h1{
-  font-size:1.4rem;
   font-weight:800;
-  background:var(--primary);
+  font-size:1.6rem;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-/* CAROUSEL */
-.crypto-banner{
-  position:fixed;
-  top:70px;
-  left:0;
-  right:0;
-  height:200px;
-  background:var(--dark);
-  overflow:hidden;
-  z-index:999;
-}
-.crypto-banner::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  box-shadow:inset 0 -50px 70px rgba(0,0,0,.45);
-  pointer-events:none;
-}
-.crypto-track{
-  display:flex;
-  height:100%;
-  padding:30px 20px;
-  width:max-content;
-  will-change:transform;
-  cursor:grab;
-}
-.crypto-track:active{cursor:grabbing}
-
-.crypto-item{
-  width:320px;
-  height:140px;
-  margin-right:24px;
-  background-size:cover;
-  background-position:center;
-  border-radius:20px;
-  box-shadow:var(--shadow);
-  flex-shrink:0;
-  display:flex;
-  align-items:flex-end;
-  border:1px solid rgba(255,255,255,.2);
-}
-.crypto-overlay{
-  width:100%;
-  padding:12px 16px;
-  background:linear-gradient(transparent,rgba(0,0,0,.9));
-  color:#fff;
-  border-radius:0 0 20px 20px;
-}
-.crypto-overlay h3{font-size:1.05rem;font-weight:700}
-.crypto-overlay p{font-size:.9rem;opacity:.9}
-
 /* HERO */
 .hero{
   min-height:100vh;
-  margin-top:200px;
-  padding:120px 20px 80px;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+  padding:140px 20px 60px;
 }
+
 .hero h2{
-  font-size:clamp(2rem,6vw,4rem);
+  font-size:clamp(2.2rem,6vw,3.5rem);
   font-weight:800;
-  margin-bottom:16px;
+  margin-bottom:20px;
 }
+
 .hero p{
-  font-size:clamp(1rem,3vw,1.4rem);
   max-width:600px;
-  margin-bottom:32px;
+  opacity:.85;
+  margin-bottom:40px;
+  font-size:1.1rem;
 }
+
+/* STATS */
+.stats{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:40px;
+}
+
+.stat-card{
+  background:var(--bg-card);
+  border:1px solid rgba(255,255,255,.1);
+  padding:20px 30px;
+  border-radius:20px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  min-width:160px;
+  text-align:center;
+}
+
+.stat-card img{
+  width:40px;
+  margin-bottom:10px;
+}
+
+.stat-card h3{
+  font-size:1.4rem;
+  margin-bottom:6px;
+}
+
+.stat-card span{
+  font-size:.9rem;
+  opacity:.7;
+}
+
+/* BUTTONS */
 .hero-buttons{
   display:flex;
-  gap:16px;
+  gap:20px;
   flex-wrap:wrap;
   justify-content:center;
 }
+
 .btn{
-  padding:16px 32px;
+  padding:16px 36px;
   border-radius:50px;
-  color:white;
+  font-weight:600;
   text-decoration:none;
-  font-weight:700;
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:10px;
-  box-shadow:0 30px 60px rgba(0,0,0,.3);
   transition:.3s;
-  min-width:220px;
-  justify-content:center;
 }
+
 .btn-primary{
-  background:rgba(255,255,255,.2);
-  border:1px solid rgba(255,255,255,.3);
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  box-shadow:0 10px 30px rgba(139,92,246,.5);
 }
-.btn-success{background:var(--success)}
-.btn:hover{transform:translateY(-6px)}
+
+.btn-primary:hover{
+  transform:translateY(-5px);
+}
+
+.btn-outline{
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);
+}
+
+.btn-outline:hover{
+  background:rgba(255,255,255,.1);
+}
 
 /* FEATURES */
 .features{
-  padding:100px 20px;
-  max-width:1200px;
+  padding:80px 20px;
+  max-width:1100px;
   margin:auto;
 }
+
 .features h2{
   text-align:center;
-  font-size:clamp(2rem,5vw,3.5rem);
-  font-weight:800;
-  margin-bottom:60px;
-}
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
-}
-.feature-card{
-  background:white;
-  border-radius:20px;
-  padding:36px 24px;
-  text-align:center;
-  box-shadow:var(--shadow);
-  transition:.3s;
-}
-.feature-card:hover{transform:translateY(-10px)}
-.feature-card i{
-  font-size:3rem;
-  margin-bottom:16px;
-  background:var(--primary);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  margin-bottom:50px;
+  font-size:2.2rem;
 }
 
-/* NAV */
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:25px;
+}
+
+.feature-card{
+  background:var(--bg-card);
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.1);
+  transition:.3s;
+}
+
+.feature-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.feature-card i{
+  font-size:2.5rem;
+  margin-bottom:15px;
+  color:var(--accent);
+}
+
+/* BOTTOM NAV */
 .bottom-nav{
   position:fixed;
   bottom:0;
   width:100%;
-  height:72px;
-  background:rgba(255,255,255,.95);
+  height:70px;
+  backdrop-filter:blur(20px);
+  background:rgba(15,23,42,.8);
   display:flex;
   justify-content:space-around;
   align-items:center;
-  box-shadow:0 -4px 20px rgba(0,0,0,.08);
+  border-top:1px solid rgba(255,255,255,.1);
 }
+
 .bottom-nav a{
-  color:#64748b;
+  color:#94a3b8;
   text-decoration:none;
   font-size:.75rem;
   display:flex;
   flex-direction:column;
   align-items:center;
 }
-.bottom-nav a i{font-size:1.3rem}
-.bottom-nav a.active{color:#8b5cf6}
 
-@media(max-width:480px){
-  .crypto-banner{height:180px}
-  .crypto-item{width:280px;height:130px}
+.bottom-nav a i{
+  font-size:1.3rem;
+  margin-bottom:4px;
 }
+
+.bottom-nav a.active{
+  color: #8b5cf6;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="logo_crypt.png" alt="ExCrypt">
   <h1>ExCrypt</h1>
 </header>
 
-<!-- CAROUSEL -->
-<div class="crypto-banner">
-  <div class="crypto-track" id="cryptoTrack">
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/46/12/08/4612087a9b302ca2eb49cd6085ee0337.jpg')">
-      <div class="crypto-overlay"><h3>USDT / FCFA</h3><p>Instantané</p></div>
+<section class="hero">
+  <h2>Échange Crypto Instantané</h2>
+  <p>Convertissez FCFA ↔ USDT rapidement et en toute sécurité avec un service fiable.</p>
+
+  <div class="stats">
+    <div class="stat-card">
+      <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=029" alt="USDT">
+      <h3>USDT</h3>
+      <span>Stablecoin sécurisé</span>
     </div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/77/e7/e0/77e7e053ae4d50d59d76766636999be5.jpg')">
-      <div class="crypto-overlay"><h3>Mobile Money</h3><p>MTN</p></div>
+
+    <div class="stat-card">
+      <h3>+150</h3>
+      <span>Transactions réussies</span>
     </div>
-    <div class="crypto-item" style="background-image:url('https://i.pinimg.com/736x/a3/ed/ad/a3edad84317fa2ce09f9c0d1f7ccf37f.jpg')">
-      <div class="crypto-overlay"><h3>Support</h3><p>24/7</p></div>
+
+    <div class="stat-card">
+      <h3>24/7</h3>
+      <span>Support disponible</span>
     </div>
   </div>
-</div>
 
-<!-- HERO -->
-<section class="hero">
-  <h2>Crypto & Mobile Money</h2>
-  <p>FCFA ↔ USDT • Taux live • Support WhatsApp</p>
   <div class="hero-buttons">
     <a href="echanger.html" class="btn btn-primary">
-      <i class="fas fa-exchange-alt"></i>Échanger
+      <i class="fas fa-exchange-alt"></i>Échanger maintenant
     </a>
-    <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-success">
-      <i class="fab fa-whatsapp"></i>Support
+    <a href="https://wa.me/2290154108665" target="_blank" class="btn btn-outline">
+      <i class="fab fa-whatsapp"></i>Support WhatsApp
     </a>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features">
-  <h2>Pourquoi ExCrypt ?</h2>
+  <h2>Pourquoi choisir ExCrypt ?</h2>
   <div class="features-grid">
-    <div class="feature-card"><i class="fas fa-bolt"></i><h3>Instantané</h3></div>
-    <div class="feature-card"><i class="fas fa-mobile-alt"></i><h3>Mobile Money</h3></div>
-    <div class="feature-card"><i class="fas fa-chart-line"></i><h3>Taux live</h3></div>
-    <div class="feature-card"><i class="fas fa-headset"></i><h3>Support 24/7</h3></div>
+    <div class="feature-card">
+      <i class="fas fa-bolt"></i>
+      <h3>Rapide</h3>
+      <p>Validation en quelques minutes.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Sécurisé</h3>
+      <p>Transactions transparentes et fiables.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-mobile-alt"></i>
+      <h3>Mobile Money</h3>
+      <p>MTN, Moov et autres réseaux.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-headset"></i>
+      <h3>Support 24/7</h3>
+      <p>Assistance rapide via WhatsApp.</p>
+    </div>
   </div>
 </section>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <a href="index.html" class="active">
     <i class="fas fa-home"></i>Accueil
@@ -272,30 +295,6 @@ header h1{
     <i class="fab fa-whatsapp"></i>Support
   </a>
 </div>
-
-<!-- JS -->
-<script>
-const track = document.getElementById("cryptoTrack");
-let currentX = 0;
-let targetX = 0;
-let autoSpeed = -0.3;
-let lastScrollY = window.scrollY;
-
-function animate(){
-  targetX += autoSpeed;
-  currentX += (targetX - currentX) * 0.08;
-  track.style.transform = `translateX(${currentX}px)`;
-  requestAnimationFrame(animate);
-}
-
-window.addEventListener("scroll",()=>{
-  const delta = window.scrollY - lastScrollY;
-  targetX -= delta * 0.7;
-  lastScrollY = window.scrollY;
-});
-
-animate();
-</script>
 
 </body>
 </html>
