@@ -1,420 +1,794 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExCrypt - Échange Crypto/Mobile Money</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ═══════════════════════════════════════
+           THEME SYSTEM — sync with index.html
+        ═══════════════════════════════════════ */
         :root {
-            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%);
-            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-            --success: #10b981;
-            --success-dark: #059669;
-            --bg-primary: #f8fafc;
-            --card-bg: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
-            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+            --sell: #00c896;
+            --sell-glow: rgba(0,200,150,0.25);
+            --buy: #f59e0b;
+            --buy-glow: rgba(245,158,11,0.25);
+            --accent: #6366f1;
+            --transition: 0.3s ease;
         }
-        * { box-sizing: border-box; }
+
+        /* DARK THEME (default) */
+        [data-theme="dark"] {
+            --bg: #0d0f14;
+            --surface: #161920;
+            --surface2: #1e2130;
+            --border: rgba(255,255,255,0.07);
+            --text: #f0f2f7;
+            --text-secondary: #c4c9d8;
+            --muted: #6b7280;
+            --header-bg: rgba(13,15,20,0.92);
+            --nav-bg: rgba(13,15,20,0.95);
+            --input-focus-bg: #232638;
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        /* LIGHT THEME */
+        [data-theme="light"] {
+            --bg: #f4f6fb;
+            --surface: #ffffff;
+            --surface2: #f0f2f8;
+            --border: rgba(0,0,0,0.08);
+            --text: #0d0f14;
+            --text-secondary: #3a3f52;
+            --muted: #8b92a5;
+            --header-bg: rgba(244,246,251,0.92);
+            --nav-bg: rgba(244,246,251,0.97);
+            --input-focus-bg: #e8ecf7;
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            margin: 0;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
             padding-bottom: 90px;
-            color: var(--text-primary);
-            line-height: 1.6;
+            transition: background var(--transition), color var(--transition);
         }
+
+        /* Ambient glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px; left: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── HEADER ─── */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.95);
+            top: 0; width: 100%;
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
-            padding: 15px 20px;
-            box-shadow: var(--shadow-md);
-            z-index: 1000;
+            padding: 14px 20px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: background var(--transition), border-color var(--transition);
         }
-        header img { height: 35px; }
-        header h1 { margin: 0; font-size: 1.4rem; font-weight: 700; }
-        main {
-            max-width: 400px;
-            margin: 100px auto 0;
-            padding: 0 20px 20px;
-        }
-        .block {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .block:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0,0,0,0.12); }
-        h5 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0 0 20px;
-            background: var(--primary-gradient);
+        header img { height: 32px; border-radius: 8px; }
+        header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text) 0%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .form-group {
-            margin-bottom: 16px;
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: absolute;
+            right: 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            width: 40px; height: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: all var(--transition);
         }
+        .theme-toggle .knob {
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: var(--muted);
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        [data-theme="dark"] .theme-toggle .knob {
+            background: var(--accent);
+            transform: translateX(0);
+        }
+        [data-theme="light"] .theme-toggle .knob {
+            background: var(--buy);
+            transform: translateX(18px);
+        }
+        [data-theme="dark"] .theme-toggle .knob::before { content: '🌙'; }
+        [data-theme="light"] .theme-toggle .knob::before { content: '☀️'; }
+
+        /* ─── MAIN ─── */
+        main {
+            max-width: 420px;
+            margin: 80px auto 0;
+            padding: 20px 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── RATE BANNER ─── */
+        .rate-banner {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .rate-pill {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.3px;
+            transition: background var(--transition), border-color var(--transition);
+        }
+        .rate-pill.sell {
+            background: rgba(0,200,150,0.12);
+            border: 1px solid rgba(0,200,150,0.3);
+            color: var(--sell);
+        }
+        .rate-pill.buy {
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: var(--buy);
+        }
+        [data-theme="light"] .rate-pill.sell {
+            background: rgba(0,200,150,0.08);
+        }
+        [data-theme="light"] .rate-pill.buy {
+            background: rgba(245,158,11,0.08);
+        }
+        .rate-pill span {
+            display: block;
+            font-size: 1.1rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+
+        /* ─── BLOCK ─── */
+        .block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s, background var(--transition), box-shadow var(--transition);
+            box-shadow: var(--shadow-card);
+        }
+        .block:focus-within {
+            border-color: rgba(99,102,241,0.4);
+        }
+
+        h5 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        h5 i { font-size: 0.85rem; }
+
+        .form-group { margin-bottom: 14px; }
         label {
             display: block;
-            font-size: 0.875rem;
+            font-size: 0.78rem;
             font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
+            color: var(--muted);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
         }
-        select, input {
+
+        /* ─── OPERATOR SELECT WITH LOGO ─── */
+        .operator-wrapper {
+            position: relative;
+        }
+        .operator-logo-badge {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            object-fit: cover;
+            pointer-events: none;
+            z-index: 2;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            transition: opacity 0.2s;
+        }
+        .operator-wrapper select {
+            padding-left: 48px !important;
+        }
+
+        /* ─── INPUTS ─── */
+        select, input[type="number"], input[type="tel"], input[type="text"] {
             width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            font-size: 1rem;
+            padding: 14px 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
             font-weight: 500;
-            background: #fafbff;
-            transition: all 0.3s ease;
+            transition: all 0.25s;
             appearance: none;
+            -webkit-appearance: none;
+        }
+        select {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 16px center;
+            background-position: right 14px center;
             background-repeat: no-repeat;
             background-size: 16px;
+            padding-right: 40px;
         }
+        select option { background: var(--surface2); color: var(--text); }
         select:focus, input:focus {
             outline: none;
-            border-color: #8b5cf6;
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+            border-color: rgba(99,102,241,0.5);
+            background: var(--input-focus-bg);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
         }
-        .price-box {
-            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-            color: var(--success-dark);
-            text-align: center;
+        input::placeholder { color: var(--muted); font-weight: 400; }
+
+        /* ─── RESULT BOX ─── */
+        .result-box {
+            border-radius: 16px;
             padding: 20px;
-            border-radius: 20px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 20px 0;
-            box-shadow: var(--shadow-md);
+            margin: 18px 0;
+            text-align: center;
+            transition: background var(--transition), border-color var(--transition);
         }
+        .result-box.receive {
+            background: linear-gradient(135deg, rgba(0,200,150,0.1), rgba(0,200,150,0.05));
+            border: 1px solid rgba(0,200,150,0.25);
+        }
+        [data-theme="light"] .result-box.receive {
+            background: linear-gradient(135deg, rgba(0,200,150,0.07), rgba(0,200,150,0.03));
+        }
+        .result-box.fee {
+            background: rgba(245,158,11,0.07);
+            border: 1px solid rgba(245,158,11,0.2);
+            margin-top: 0;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .result-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .result-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--sell);
+            letter-spacing: -1px;
+        }
+        .result-value.usdt { color: #38bdf8; }
+        .fee-label { font-size: 0.82rem; color: var(--muted); }
+        .fee-value { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--buy); }
+        .net-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+
+        /* ─── MIN NOTICE ─── */
+        .min-notice {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            transition: background var(--transition), border-color var(--transition);
+        }
+        [data-theme="light"] .min-notice {
+            background: rgba(0,0,0,0.03);
+        }
+        .min-notice i { color: var(--accent); margin-right: 4px; }
+
+        /* ─── RECEIVE LOGO ─── */
         .logo-receive {
             display: block;
-            margin: 20px auto;
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            background: #fff;
-            padding: 12px;
-        }
-        button {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            border: none;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            cursor: pointer;
+            margin: 16px auto;
+            width: 70px; height: 70px;
+            object-fit: cover;
+            border-radius: 16px;
+            background: var(--surface2);
+            padding: 0;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.4);
-        }
-        button:active { transform: translateY(0); }
+
+        /* ─── ERROR ─── */
         .error-message {
-            color: #ef4444;
-            font-weight: 600;
-            margin-top: 10px;
-            display: none;
+            color: #f87171;
+            font-size: 0.85rem;
+            font-weight: 500;
             text-align: center;
             padding: 12px;
-            background: #fef2f2;
+            background: rgba(248,113,113,0.08);
+            border: 1px solid rgba(248,113,113,0.2);
             border-radius: 12px;
-            border: 1px solid #fecaca;
+            margin-top: 12px;
+            display: none;
         }
-        /* Bottom Nav comme HQ Store */
+
+        /* ─── BUTTON ─── */
+        button#continueBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--sell) 0%, #00a87a 100%);
+            border: none;
+            border-radius: 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0d0f14;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 30px rgba(0,200,150,0.25);
+        }
+        button#continueBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(0,200,150,0.35);
+        }
+        button#continueBtn:active { transform: translateY(0); }
+        button#continueBtn:disabled {
+            background: var(--surface2);
+            color: var(--muted);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* ─── BOTTOM NAV ─── */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             width: 100%;
-            background: rgba(255,255,255,0.95);
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
-            align-items: center;
-            height: 80px;
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
-            padding: 0 20px;
+            height: 75px;
+            z-index: 100;
+            transition: background var(--transition), border-color var(--transition);
         }
         .bottom-nav a {
-            color: var(--text-secondary);
+            flex: 1;
+            color: var(--muted);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
+            font-weight: 600;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            padding: 8px;
-            border-radius: 16px;
+            gap: 5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.25s;
         }
-        .bottom-nav a i {
-            font-size: 1.5rem;
-            margin-bottom: 4px;
-        }
-        .bottom-nav a.active,
-        .bottom-nav a:hover {
-            color: #8b5cf6;
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-        /* Responsive */
-        @media (max-width: 480px) {
-            main { padding: 0 16px 16px; }
-            .block { padding: 20px; }
-        }
-        /* Hide sections */
-        .section { display: none; }
-        .section.active { display: block; }
+        .bottom-nav a i { font-size: 1.3rem; }
+        .bottom-nav a.active, .bottom-nav a:hover { color: var(--sell); }
     </style>
 </head>
 <body>
-    <header>
-        <img src="logo_crypt.png" alt="ExCrypt"> <h1>ExCrypt</h1>
-    </header>
 
-    <main>
-        <!-- Je donne -->
-        <div class="block">
-            <h5><i class="fas fa-arrow-up me-2"></i>Je donne</h5>
+<header>
+    <img src="logo_crypt.png" alt="ExCrypt">
+    <h1>ExCrypt</h1>
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème" onclick="toggleTheme()">
+        <div class="knob"></div>
+    </button>
+</header>
+
+<main>
+
+    <!-- Taux en temps réel -->
+    <div class="rate-banner">
+        <div class="rate-pill sell">
+            🟢 Vente USDT
+            <span>595 FCFA</span>
+        </div>
+        <div class="rate-pill buy">
+            🟡 Achat USDT
+            <span>562 FCFA</span>
+        </div>
+    </div>
+
+    <!-- Minimum -->
+    <div class="min-notice">
+        <i class="fas fa-info-circle"></i>
+        Montant minimum : <strong>2 000 FCFA</strong> &nbsp;|&nbsp; Max : <strong>100 000 FCFA</strong>
+    </div>
+
+    <!-- Bloc Je donne -->
+    <div class="block">
+        <h5><i class="fas fa-arrow-up"></i> Je donne</h5>
+
+        <div class="form-group">
+            <label>Devise</label>
+            <select id="giveSelect">
+                <option value="FCFA">Mobile Money (FCFA)</option>
+                <option value="USDT">USDT</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Montant</label>
+            <input id="giveAmount" type="number" placeholder="Montant (min 2 000 FCFA)" min="1">
+        </div>
+
+        <!-- Mobile Money give -->
+        <div id="mobileGive" class="section active">
             <div class="form-group">
-                <label>Devise</label>
-                <select id="giveSelect">
-                    <option value="FCFA">Mobile Money (FCFA)</option>
-                    <option value="USDT">USDT</option>
+                <label>Pays</label>
+                <select id="country">
+                    <option value="+229">Bénin (+229)</option>
+                    <option value="+226">Burkina Faso (+226)</option>
+                    <option value="+225">Côte d'Ivoire (+225)</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Montant</label>
-                <input id="giveAmount" type="number" placeholder="Entrez le montant" min="1">
-            </div>
-            <div id="mobileGive" class="section active">
-                <div class="form-group">
-                    <label>Pays</label>
-                    <select id="country">
-                        <option value="+229">Bénin (+229)</option>
-                        <option value="+226">Burkina Faso (+226)</option>
-                        <option value="+225">Côte d’Ivoire (+225)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Opérateur</label>
+                <label>Opérateur</label>
+                <div class="operator-wrapper">
+                    <img id="operatorBadge" class="operator-logo-badge" src="" alt="">
                     <select id="operator">
-                        <option>Orange Money</option>
-                        <option>MTN MoMo</option>
-                        <option>Wave</option>
-                        <option>Moov Money</option>
-                        <option>Celtiis</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Numéro</label>
-                    <input id="mobileNumber" type="tel" placeholder="Numéro Mobile Money">
-                </div>
-            </div>
-            <div id="giveNetwork" class="section">
-                <div class="form-group">
-                    <label>Réseau</label>
-                    <select>
-                        <option>TRC20</option>
-                        <option>ERC20</option>
-                        <option>BEP20</option>
+                        <option value="Orange Money">Orange Money</option>
+                        <option value="MTN MoMo">MTN MoMo</option>
+                        <option value="Wave">Wave</option>
+                        <option value="Moov Money">Moov Money</option>
+                        <option value="Celtiis">Celtiis</option>
                     </select>
                 </div>
             </div>
-            <div class="error-message" id="errorMessage"></div>
-        </div>
-
-        <!-- Je reçois -->
-        <div class="block">
-            <h5><i class="fas fa-arrow-down me-2"></i>Je reçois</h5>
-            <div id="priceBox" class="price-box">≈ 0 USDT</div>
-            <img id="receiveLogo" class="logo-receive" src="" alt="Logo réception">
-
-            <div id="receiveCrypto" class="section">
-                <div class="form-group">
-                    <label>Réseau crypto</label>
-                    <select id="receiveCryptoNetwork">
-                        <option>TRC20</option>
-                        <option>ERC20</option>
-                        <option>BEP20</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Adresse wallet</label>
-                    <input id="receiveCryptoAddress" type="text" placeholder="Collez votre adresse USDT">
-                </div>
-            </div>
-
-            <div id="receiveMobile" class="section">
-                <div class="form-group">
-                    <label>Nom du titulaire</label>
-                    <input id="receiveName" type="text" placeholder="Votre nom complet">
-                </div>
-                <div class="form-group">
-                    <label>Pays</label>
-                    <select id="receiveCountry">
-                        <option value="+229">Bénin (+229)</option>
-                        <option value="+226">Burkina Faso (+226)</option>
-                        <option value="+225">Côte d’Ivoire (+225)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Opérateur</label>
-                    <select id="receiveOperator">
-                        <option>Orange Money</option>
-                        <option>MTN MoMo</option>
-                        <option>Wave</option>
-                        <option>Moov Money</option>
-                        <option>Celtiis</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Numéro</label>
-                    <input id="receiveNumber" type="tel" placeholder="Numéro Mobile Money">
-                </div>
+            <div class="form-group">
+                <label>Numéro Mobile Money</label>
+                <input id="mobileNumber" type="tel" placeholder="Ex: 97000000">
             </div>
         </div>
 
-        <button id="continueBtn">
-            Continuer
-        </button>
-    </main>
+        <!-- USDT give -->
+        <div id="giveNetwork" class="section">
+            <div class="form-group">
+                <label>Réseau</label>
+                <select id="giveNetworkSelect">
+                    <option>TRC20</option>
+                    <option>ERC20</option>
+                    <option>BEP20</option>
+                </select>
+            </div>
+        </div>
 
-    <div class="bottom-nav">
-        <a href="index.html" title="Accueil">
-            <i class="fas fa-home"></i>
-            <span>Accueil</span>
-        </a>
-        <a href="echanger.html" class="active" title="Échanger">
-            <i class="fas fa-exchange-alt"></i>
-            <span>Échanger</span>
-        </a>
-        <a href="https://wa.me/2290154108665" title="Contact">
-            <i class="fab fa-whatsapp"></i>
-            <span>Contact</span>
-        </a>
+        <div class="error-message" id="errorMessage"></div>
     </div>
 
-    <script>
-        const rates = { FCFA_USDT: 607.88, USDT_FCFA: 559.75 };
-        const elements = {
-            giveSelect: document.getElementById('giveSelect'),
-            giveAmount: document.getElementById('giveAmount'),
-            mobileGive: document.getElementById('mobileGive'),
-            giveNetwork: document.getElementById('giveNetwork'),
-            receiveCrypto: document.getElementById('receiveCrypto'),
-            receiveMobile: document.getElementById('receiveMobile'),
-            priceBox: document.getElementById('priceBox'),
-            receiveLogo: document.getElementById('receiveLogo'),
-            receiveOperator: document.getElementById('receiveOperator'),
-            errorMessage: document.getElementById('errorMessage'),
-            continueBtn: document.getElementById('continueBtn')
-        };
+    <!-- Bloc Je reçois -->
+    <div class="block">
+        <h5><i class="fas fa-arrow-down"></i> Je reçois</h5>
 
-        // Logos opérateurs (utilisez des URLs stables ou hébergez-les)
-        const operatorLogos = {
-            'Orange Money': 'https://i.pinimg.com/736x/e2/cc/bf/e2ccbf284b0f18ae6e8dc544ac097f4c.jpg',
-            'MTN MoMo': 'https://i.pinimg.com/1200x/f2/f9/38/f2f9385a59cf088b7b77472f3636d4fb.jpg',
-            'Wave': 'https://depotmobilemoney.com/images/produits/wave.jpg',
-            'Moov Money': 'https://www.lenouvelliste.ma/wp-content/uploads/2025/11/Moov-Money.jpg',
-            'Celtiis': 'https://sckaler.cloud/celtiiscash.png'
-        };
+        <div class="result-box receive">
+            <div class="result-label">Vous recevrez</div>
+            <div class="result-value" id="receiveValue">—</div>
+            <div class="net-label" id="netLabel"></div>
+        </div>
 
-        function updateUI() {
-            const give = elements.giveSelect.value;
-            const amount = parseFloat(elements.giveAmount.value) || 0;
+        <div class="result-box fee" id="feeBox" style="display:none;">
+            <span class="fee-label"><i class="fas fa-receipt" style="margin-right:6px;color:#f59e0b"></i>Frais de service</span>
+            <span class="fee-value" id="feeValue">—</span>
+        </div>
 
-            // Toggle sections
-            elements.mobileGive.classList.toggle('active', give === 'FCFA');
-            elements.giveNetwork.classList.toggle('active', give === 'USDT');
-            elements.receiveCrypto.classList.toggle('active', give === 'FCFA');
-            elements.receiveMobile.classList.toggle('active', give === 'USDT');
+        <img id="receiveLogo" class="logo-receive" src="" alt="" style="display:none;">
 
-            // Update price
-            if (give === 'FCFA' && amount > 0) {
-                elements.priceBox.textContent = `≈ ${(amount / rates.FCFA_USDT).toFixed(2)} USDT`;
-            } else if (give === 'USDT' && amount > 0) {
-                elements.priceBox.textContent = `≈ ${Math.round(amount * rates.USDT_FCFA)} FCFA`;
-            } else {
-                elements.priceBox.textContent = '≈ 0';
-            }
+        <!-- Receive crypto (FCFA→USDT) -->
+        <div id="receiveCrypto" class="section active">
+            <div class="form-group">
+                <label>Réseau crypto</label>
+                <select id="receiveCryptoNetwork">
+                    <option>TRC20</option>
+                    <option>ERC20</option>
+                    <option>BEP20</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Adresse wallet USDT</label>
+                <input id="receiveCryptoAddress" type="text" placeholder="Collez votre adresse wallet">
+            </div>
+        </div>
 
-            // Update logo
-            if (give === 'FCFA') {
-                elements.receiveLogo.src = 'https://i.pinimg.com/1200x/a4/40/d4/a440d4b512f4d2b9b63d3ab8818fc9e3.jpg'; // USDT
-            } else {
-                const op = elements.receiveOperator.value;
-                elements.receiveLogo.src = operatorLogos[op] || '';
-            }
+        <!-- Receive mobile (USDT→FCFA) -->
+        <div id="receiveMobile" class="section">
+            <div class="form-group">
+                <label>Nom du titulaire</label>
+                <input id="receiveName" type="text" placeholder="Votre nom complet">
+            </div>
+            <div class="form-group">
+                <label>Pays</label>
+                <select id="receiveCountry">
+                    <option value="+229">Bénin (+229)</option>
+                    <option value="+226">Burkina Faso (+226)</option>
+                    <option value="+225">Côte d'Ivoire (+225)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Opérateur</label>
+                <div class="operator-wrapper">
+                    <img id="receiveOperatorBadge" class="operator-logo-badge" src="" alt="">
+                    <select id="receiveOperator">
+                        <option value="Orange Money">Orange Money</option>
+                        <option value="MTN MoMo">MTN MoMo</option>
+                        <option value="Wave">Wave</option>
+                        <option value="Moov Money">Moov Money</option>
+                        <option value="Celtiis">Celtiis</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Numéro Mobile Money</label>
+                <input id="receiveNumber" type="tel" placeholder="Ex: 97000000">
+            </div>
+        </div>
+    </div>
+
+    <button id="continueBtn" disabled>
+        <i class="fab fa-whatsapp" style="margin-right:8px;"></i> Continuer sur WhatsApp
+    </button>
+
+</main>
+
+<div class="bottom-nav">
+    <a href="index.html">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+    </a>
+    <a href="echanger.html" class="active">
+        <i class="fas fa-exchange-alt"></i>
+        <span>Échanger</span>
+    </a>
+    <a href="https://wa.me/2290154108665">
+        <i class="fab fa-whatsapp"></i>
+        <span>Contact</span>
+    </a>
+</div>
+
+<script>
+    // ═══════════════════════════════════════
+    //  THEME SYSTEM — sync with index.html
+    // ═══════════════════════════════════════
+    const THEME_KEY = 'excrypt-theme';
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        // Save to sessionStorage for cross-page sync (same tab)
+        sessionStorage.setItem(THEME_KEY, next);
+        // Also localStorage for persistence
+        localStorage.setItem(THEME_KEY, next);
+    }
+
+    // Load saved theme on page init
+    (function initTheme() {
+        const saved = sessionStorage.getItem(THEME_KEY) || localStorage.getItem(THEME_KEY) || 'dark';
+        applyTheme(saved);
+    })();
+
+    // Listen for theme changes from other pages (same origin)
+    window.addEventListener('storage', (e) => {
+        if (e.key === THEME_KEY) applyTheme(e.newValue);
+    });
+
+    // ═══════════════════════════════════════
+    //  CONFIG TAUX & FRAIS
+    // ═══════════════════════════════════════
+    const RATE_SELL = 595;
+    const RATE_BUY  = 562;
+    const MIN_AMOUNT_FCFA = 2000;
+    const MAX_AMOUNT_FCFA = 100000;
+
+    function getFees(amountFCFA) {
+        if (amountFCFA < MIN_AMOUNT_FCFA) return null;
+        if (amountFCFA <= 20000) return 500;
+        if (amountFCFA <= 100000) return 1000;
+        return null;
+    }
+
+    const operatorLogos = {
+        'Orange Money': 'https://i.pinimg.com/736x/e2/cc/bf/e2ccbf284b0f18ae6e8dc544ac097f4c.jpg',
+        'MTN MoMo':     'https://i.pinimg.com/1200x/f2/f9/38/f2f9385a59cf088b7b77472f3636d4fb.jpg',
+        'Wave':         'https://depotmobilemoney.com/images/produits/wave.jpg',
+        'Moov Money':   'https://www.lenouvelliste.ma/wp-content/uploads/2025/11/Moov-Money.jpg',
+        'Celtiis':      'https://sckaler.cloud/celtiiscash.png'
+    };
+    const USDT_LOGO = 'https://i.pinimg.com/1200x/a4/40/d4/a440d4b512f4d2b9b63d3ab8818fc9e3.jpg';
+
+    const $ = id => document.getElementById(id);
+
+    // ─── Update operator badge in select ───
+    function updateOperatorBadge(selectId, badgeId) {
+        const val = $(selectId).value;
+        const badge = $(badgeId);
+        if (operatorLogos[val]) {
+            badge.src = operatorLogos[val];
+            badge.style.display = 'block';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    function updateUI() {
+        const give = $('giveSelect').value;
+        const rawAmount = parseFloat($('giveAmount').value) || 0;
+
+        // Toggle sections
+        $('mobileGive').classList.toggle('active', give === 'FCFA');
+        $('giveNetwork').classList.toggle('active', give === 'USDT');
+        $('receiveCrypto').classList.toggle('active', give === 'FCFA');
+        $('receiveMobile').classList.toggle('active', give === 'USDT');
+
+        // Update operator badges
+        updateOperatorBadge('operator', 'operatorBadge');
+        updateOperatorBadge('receiveOperator', 'receiveOperatorBadge');
+
+        // Reset
+        $('errorMessage').style.display = 'none';
+        $('feeBox').style.display = 'none';
+        $('receiveLogo').style.display = 'none';
+        $('continueBtn').disabled = true;
+        $('receiveValue').textContent = '—';
+        $('receiveValue').className = 'result-value';
+        $('netLabel').textContent = '';
+
+        if (rawAmount <= 0) return;
+
+        let amountFCFA = give === 'FCFA' ? rawAmount : rawAmount * RATE_BUY;
+
+        if (amountFCFA < MIN_AMOUNT_FCFA) {
+            showError(`Montant minimum : ${MIN_AMOUNT_FCFA.toLocaleString('fr')} FCFA`);
+            return;
+        }
+        if (amountFCFA > MAX_AMOUNT_FCFA) {
+            showError(`Montant maximum : ${MAX_AMOUNT_FCFA.toLocaleString('fr')} FCFA. Contactez-nous pour plus.`);
+            return;
         }
 
-        elements.continueBtn.onclick = () => {
-            const give = elements.giveSelect.value;
-            const amount = parseFloat(elements.giveAmount.value);
-            if (!amount || amount <= 0) {
-                elements.errorMessage.textContent = 'Veuillez entrer un montant valide.';
-                elements.errorMessage.style.display = 'block';
-                return;
-            }
+        const fees = getFees(amountFCFA);
 
-            let msg = `🌟 *Demande d'échange ExCrypt* 🌟\n\n`;
-            if (give === 'FCFA') {
-                msg += `💰 *Je donne* : ${amount.toLocaleString()} FCFA\n`;
-                msg += `📍 *Pays* : ${document.getElementById('country').options[document.getElementById('country').selectedIndex].text}\n`;
-                msg += `📱 *Opérateur* : ${document.getElementById('operator').value}\n`;
-                msg += `📞 *Numéro* : ${document.getElementById('mobileNumber').value}\n`;
-                msg += `🔄 *Je reçois* : USDT (${document.getElementById('receiveCryptoNetwork').value})\n`;
-                msg += `💼 *Adresse wallet* : ${document.getElementById('receiveCryptoAddress').value}`;
-            } else {
-                msg += `🔄 *Je donne* : ${amount} USDT (${document.querySelector('#giveNetwork select').value})\n`;
-                msg += `👤 *Nom* : ${document.getElementById('receiveName').value}\n`;
-                msg += `📍 *Pays* : ${document.getElementById('receiveCountry').options[document.getElementById('receiveCountry').selectedIndex].text}\n`;
-                msg += `📱 *Opérateur* : ${document.getElementById('receiveOperator').value}\n`;
-                msg += `📞 *Numéro* : ${document.getElementById('receiveNumber').value}`;
-            }
+        if (give === 'FCFA') {
+            const fcfaAfterFees = rawAmount - fees;
+            const usdt = fcfaAfterFees / RATE_SELL;
+            $('receiveValue').textContent = `${usdt.toFixed(2)} USDT`;
+            $('receiveValue').classList.add('usdt');
+            $('netLabel').textContent = `Après déduction des frais (${fees.toLocaleString('fr')} FCFA)`;
+            $('feeBox').style.display = 'flex';
+            $('feeValue').textContent = `${fees.toLocaleString('fr')} FCFA`;
+            $('receiveLogo').src = USDT_LOGO;
+            $('receiveLogo').style.display = 'block';
+        } else {
+            const totalFCFA = rawAmount * RATE_BUY;
+            const fcfaAfterFees = totalFCFA - fees;
+            $('receiveValue').textContent = `${Math.round(fcfaAfterFees).toLocaleString('fr')} FCFA`;
+            $('netLabel').textContent = `${Math.round(totalFCFA).toLocaleString('fr')} FCFA − ${fees.toLocaleString('fr')} FCFA de frais`;
+            $('feeBox').style.display = 'flex';
+            $('feeValue').textContent = `${fees.toLocaleString('fr')} FCFA`;
 
-            window.open(`https://wa.me/2290154108665?text=${encodeURIComponent(msg)}`, '_blank');
-        };
+            const op = $('receiveOperator').value;
+            $('receiveLogo').src = operatorLogos[op] || '';
+            $('receiveLogo').style.display = 'block';
+        }
 
-        // Event listeners
-        ['giveSelect', 'giveAmount'].forEach(id => document.getElementById(id).addEventListener('input', updateUI));
-        elements.receiveOperator.addEventListener('change', updateUI);
-        updateUI();
-    </script>
+        $('continueBtn').disabled = false;
+    }
+
+    function showError(msg) {
+        const el = $('errorMessage');
+        el.textContent = msg;
+        el.style.display = 'block';
+        $('receiveValue').textContent = '—';
+        $('continueBtn').disabled = true;
+    }
+
+    $('continueBtn').onclick = () => {
+        const give = $('giveSelect').value;
+        const amount = parseFloat($('giveAmount').value);
+        const amountFCFA = give === 'FCFA' ? amount : amount * RATE_BUY;
+        const fees = getFees(amountFCFA);
+
+        let msg = `🌟 *Demande d'échange ExCrypt* 🌟\n\n`;
+
+        if (give === 'FCFA') {
+            const fcfaAfterFees = amount - fees;
+            const usdt = (fcfaAfterFees / RATE_SELL).toFixed(2);
+            msg += `💰 *Je donne* : ${amount.toLocaleString('fr')} FCFA\n`;
+            msg += `📱 *Opérateur* : ${$('operator').value}\n`;
+            msg += `📍 *Pays* : ${$('country').options[$('country').selectedIndex].text}\n`;
+            msg += `📞 *Numéro* : ${$('mobileNumber').value}\n\n`;
+            msg += `💸 *Frais* : ${fees.toLocaleString('fr')} FCFA\n`;
+            msg += `🔄 *Je reçois* : ${usdt} USDT (${$('receiveCryptoNetwork').value})\n`;
+            msg += `💼 *Adresse wallet* : ${$('receiveCryptoAddress').value}`;
+        } else {
+            const totalFCFA = amount * RATE_BUY;
+            const net = Math.round(totalFCFA - fees).toLocaleString('fr');
+            msg += `🔄 *Je donne* : ${amount} USDT (${$('giveNetworkSelect').value})\n\n`;
+            msg += `💸 *Frais* : ${fees.toLocaleString('fr')} FCFA\n`;
+            msg += `💰 *Je reçois* : ${net} FCFA\n`;
+            msg += `👤 *Nom* : ${$('receiveName').value}\n`;
+            msg += `📱 *Opérateur* : ${$('receiveOperator').value}\n`;
+            msg += `📍 *Pays* : ${$('receiveCountry').options[$('receiveCountry').selectedIndex].text}\n`;
+            msg += `📞 *Numéro* : ${$('receiveNumber').value}`;
+        }
+
+        window.open(`https://wa.me/2290154108665?text=${encodeURIComponent(msg)}`, '_blank');
+    };
+
+    // Events
+    ['giveSelect', 'giveAmount'].forEach(id => $(id).addEventListener('input', updateUI));
+    $('operator').addEventListener('change', updateUI);
+    $('receiveOperator').addEventListener('change', updateUI);
+
+    // Init
+    updateUI();
+    updateOperatorBadge('operator', 'operatorBadge');
+    updateOperatorBadge('receiveOperator', 'receiveOperatorBadge');
+</script>
 </body>
 </html>
